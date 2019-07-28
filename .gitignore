@@ -1,104 +1,41 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+class Node:
+    def __init__(self,x,nextNode=None):
+        self.val=x
+        self.next = nextNode
 
-# C extensions
-*.so
+def printList(l):
+    value = []
+    while(l):
+        value.append(l.val)
+        l=l.next
+    print(' -> '.join(map(str, value)))
+    
+def addTwoNumbers(l1, l2):
+    sum = l1.val + l2.val
+    carry = int(sum / 10)
+ 
+    l3 = Node(sum%10)
+    p1 = l1.next
+    p2 = l2.next
+    p3 = l3
+    while(p1 != None or p2 != None):
+        sum = carry + ( p1.val if p1 else 0) + ( p2.val if p2 else 0)
+        carry = int(sum/10)
+        p3.next = Node(sum % 10)
+        p3 = p3.next
+        p1 = p1.next if p1 else None
+        p2 = p2.next if p2 else None
+ 
+    if(carry > 0):
+        p3.next = Node(carry)
+ 
+    return l3
+ 
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
+l1 = Node(9, Node(8, Node(7)))
+printList(l1)
+l2 = Node(8, Node(7, Node(4)))
+printList(l2)
+l3 = addTwoNumbers(l1, l2)
+printList(l3)   
+print()   
